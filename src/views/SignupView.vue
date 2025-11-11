@@ -6,7 +6,10 @@
         <h2 class="font-weight-bold text-h5">حساب جديد</h2>
       </v-card-title>
 
-      <Form :validation-schema="schema" @submit="handleSignup">
+      <Form :validation-schema="schema" @submit="handleSignup"   :validate-on-change="true"
+  :validate-on-blur="false"
+  :validate-on-input="false"
+  :validate-on-model-update="false">
         <v-row dense>
           <v-col cols="12" md="6">
             <Field name="fullName" v-slot="{ field, meta }">
@@ -21,6 +24,7 @@
               />
             </Field>
           </v-col>
+           <TextField name="email" label="البريد الإلكتروني" type="email" cols="12" md="6"/>
 
           <v-col cols="12" md="6">
             <Field name="gender" v-slot="{ field, meta }">
@@ -94,7 +98,7 @@
             </Field>
           </v-col>
 
-          <v-col cols="12" md="6">
+          <!-- <v-col cols="12" md="6">
             <Field name="email" v-slot="{ field, meta }">
               <v-text-field
                 v-bind="field"
@@ -107,7 +111,7 @@
                 :error-messages="meta.error"
               />
             </Field>
-          </v-col>
+          </v-col> -->
 
           <v-col cols="12" md="6">
             <Field name="password" v-slot="{ field, meta }">
@@ -176,34 +180,48 @@
   </v-container>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { Form, Field } from 'vee-validate'
+import { Form, Field, useForm } from 'vee-validate'
 import * as yup from 'yup'
+import { watch } from 'vue'
+import TextField from "@/components/controls/textField";
 
 const store = useStore()
+// const signupform= useForm()
+// Initialize VeeValidate form composable
+const { values, errors, validate } = useForm()
 const loading = computed(() => store.state.auth.loading)
 
 const schema = yup.object({
-  fullName: yup.string().required('الاسم مطلوب'),
-  gender: yup.string().required('يرجى اختيار الجنس'),
-  city: yup.string().required('المدينة مطلوبة'),
-  idNumber: yup.string().required('الهوية مطلوبة'),
-  birthDate: yup.date().required('تاريخ الميلاد مطلوب'),
-  phone: yup.string().required('رقم الهاتف مطلوب').matches(/^(\+?\d{8,15})$/, 'رقم هاتف غير صالح'),
   email: yup.string().email('البريد الإلكتروني غير صالح').required('البريد الإلكتروني مطلوب'),
-  password: yup.string().min(6, 'كلمة المرور يجب أن تكون 6 أحرف على الأقل').required('كلمة المرور مطلوبة'),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'كلمة المرور غير متطابقة')
-    .required('تأكيد كلمة المرور مطلوب'),
-  acceptTerms: yup.boolean().oneOf([true], 'يجب قبول الشروط والأحكام')
+  // fullName: yup.string().required('الاسم مطلوب'),
+  // gender: yup.string().required('يرجى اختيار الجنس'),
+  // city: yup.string().required('المدينة مطلوبة'),
+  // idNumber: yup.string().required('الهوية مطلوبة'),
+  // birthDate: yup.date().required('تاريخ الميلاد مطلوب'),
+  // phone: yup.string().required('رقم الهاتف مطلوب').matches(/^(\+?\d{8,15})$/, 'رقم هاتف غير صالح'),
+  // password: yup.string().min(6, 'كلمة المرور يجب أن تكون 6 أحرف على الأقل').required('كلمة المرور مطلوبة'),
+  // confirmPassword: yup
+  //   .string()
+  //   .oneOf([yup.ref('password')], 'كلمة المرور غير متطابقة')
+  //   .required('تأكيد كلمة المرور مطلوب'),
+  // acceptTerms: yup.boolean().oneOf([true], 'يجب قبول الشروط والأحكام')
 })
 
+// console.log('result', signupform)
 const handleSignup = async (values) => {
-  await store.dispatch('auth/register', values)
+  // const result = await validate()
+  // if (!result.valid) {
+  //   console.log('Form has errors:', errors.value)
+  //   return
+  // }
+
+  console.log('Form is valid!', values)
+  // await store.dispatch('auth/register', values)
 }
+watch(values, (val) => console.log('Current form values:', val))
 </script>
 
 <style scoped>

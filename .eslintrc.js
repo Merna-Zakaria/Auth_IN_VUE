@@ -22,4 +22,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'warn',
     'vue/multi-word-component-names': 'off',
   },
+  globals: {
+    "defineProps": "readonly",
+  }
 };
