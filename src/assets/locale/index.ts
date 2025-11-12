@@ -17,7 +17,7 @@ const messages = {
   [Locales.AR]: ar,
 };
 
-const defaultLocale = Locales.EN;
+const defaultLocale = Locales.AR;
 
 const i18n = createI18n({
   legacy: false,

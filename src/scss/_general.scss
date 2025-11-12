@@ -1,6 +1,6 @@
 @import "./variables";
 
-.blue-color {
+.primary-color {
   color: $primaryColor;
 }
 
@@ -14,4 +14,8 @@
 
 .margin_auto{
   margin: auto;
+}
+
+.custom-width {
+  width: 60%;
 }

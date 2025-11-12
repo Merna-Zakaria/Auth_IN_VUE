@@ -1,18 +1,24 @@
 <template>
-  <div class="">
-    <!-- <img alt="Vue logo" :src="images.login" width="200" /> -->
-    <LoginForm />
-  </div>
+  <AuthLayout
+  title="حساب جديد"
+  footertext1="لديك حساب؟"
+  footertext2="تسجيل دخول"
+  path="/signup"
+>
+  <!-- Child content passed to the slot -->
+  <LoginForm />
+</AuthLayout>
 </template>
 
 <script lang="ts">
-// import { login } from "@/assets/images";
-import { LoginForm } from "@/components";
+import { SignupForm, AuthLayout, LoginForm } from "@/components";
+
 
 export default {
-  name: "LoginView",
+  name: "SignupView",
   components: {
     LoginForm,
+    AuthLayout
   },
 
   setup() {

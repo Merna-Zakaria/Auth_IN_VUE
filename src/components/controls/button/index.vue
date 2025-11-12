@@ -1,6 +1,7 @@
 <template>
   <div class="btn_wrapper">
     <v-btn
+    :type="type"
       :color="color"
       btn_type
       :style="styles"
@@ -23,6 +24,7 @@ interface Props {
   // eslint-disable-next-line
   handleClick: () => {};
   btn_style: string;
+  type: string
 }
 
 export default defineComponent({

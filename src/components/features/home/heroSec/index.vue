@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1 class="blue-color lato-bold">{{ msg }}</h1>
+    <h1 class="primary-color lato-bold">{{ msg }}</h1>
     <div class="d-flex justify-center">
       <div>
         <Button
