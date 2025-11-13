@@ -1,52 +1,49 @@
 <template>
-  <div class="btn_wrapper">
+  <div class="btn_wrapper d-flex justify-center">
     <v-btn
-    :type="type"
+      :type="type"
       :color="color"
-      btn_type
-      :style="styles"
-      @click="handleClick"
+      :variant="btn_type"
+      :style="mergedStyles"
       :class="btn_style"
-      >{{ t(text_key) }}</v-btn
+      @click="handleClick"
     >
+      {{ t(text_key) }}
+    </v-btn>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, computed } from "vue";
 import { useI18n } from "vue-i18n";
 
-interface Props {
-  color: string;
-  text_key: string;
-  btn_type: string;
-  content_color: string;
-  // eslint-disable-next-line
-  handleClick: () => {};
-  btn_style: string;
-  type: string
-}
-
 export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "Button",
-  props: [
-    "color",
-    "text_key",
-    "btn_type",
-    "content_color",
-    "handleClick",
-    "btn_style",
-  ],
-  setup(props: Props) {
+  props: {
+    color: { type: String, required: true },
+    text_key: { type: String, required: true },
+    btn_type: { type: String, default: "elevated" },
+    content_color: { type: String, default: "#fff" },
+    handleClick: { type: Function},
+    btn_style: { type: String, default: "" },
+    type: { type: String, default: "button" },
+    width: { type: String, default: "auto" }, // ✅ New prop
+  },
+  setup(props) {
     const { t } = useI18n();
-    return {
-      t,
-      styles: {
-        color: props.content_color,
-      },
-    };
+
+    const mergedStyles = computed(() => ({
+      color: props.content_color,
+      width: props.width, // ✅ dynamic width support
+    }));
+
+    return { t, mergedStyles };
   },
 });
 </script>
-<style scoped lang="scss"></style>
+
+<style scoped>
+.btn_wrapper {
+  width: 100%;
+}
+</style>

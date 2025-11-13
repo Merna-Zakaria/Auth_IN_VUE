@@ -82,7 +82,7 @@ export default {
           <TextField name="password" label="كلمة المرور" type="password" :cols="12" :md="12"/>
           <v-col cols="12" class="text-center mt-6">
      <Button
-        styles="margin_auto custom-width"
+        styles="margin_auto w-60"
         btn_type="depressed"
         text_key="login"
         handleClick=""

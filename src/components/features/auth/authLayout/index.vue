@@ -2,8 +2,13 @@
   <v-container class="fill-height d-flex align-center justify-center" fluid>
     <v-card class="pa-10 rounded-xl" max-width="900" elevation="4">
       <!-- Header -->
-      <v-card-title class="text-center justify-center flex-column mb-6">
-        <v-img :src="logo" max-width="150" class="mb-4 margin_auto" />
+      <v-card-title class="text-center flex-column mb-6 w-100">
+        <v-img
+          :src="logo"
+          max-width="150"
+          class="mb-4 mx-auto d-block"
+          contain
+        />
         <h2 class="font-weight-bold text-h5">{{ title }}</h2>
       </v-card-title>
 
@@ -26,7 +31,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { RouterLink } from "vue-router";
-import logo from "@/assets/images/logo.png"; 
+import logo from "@/assets/images/logo.png";
 
 export default defineComponent({
   name: "AuthLayout",
@@ -37,17 +42,28 @@ export default defineComponent({
     footertext2: { type: String, default: "" },
     path: { type: String, default: "/" },
   },
-   setup() {
+  setup() {
     return { logo };
   },
 });
-
-
 </script>
 
 <style scoped>
 .v-card {
   direction: rtl;
   font-family: "Tajawal", sans-serif;
+}
+
+/* Center the logo properly */
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Optional: ensure image scales nicely */
+.v-img {
+  object-fit: contain;
 }
 </style>
