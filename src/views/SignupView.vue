@@ -3,7 +3,7 @@
   title="حساب جديد"
   footertext1="لديك حساب؟"
   footertext2="تسجيل دخول"
-  path="/signup"
+  path="/login"
 >
   <!-- Child content passed to the slot -->
   <SignupForm />

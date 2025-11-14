@@ -1,30 +1,5 @@
-<!-- <template>
-  <v-app>
-    <v-main>
-      <router-view />
-      <Snackbar />
-    </v-main>
-  </v-app>
-</template>
-
-<script lang="ts">
-import { defineComponent } from "vue";
-import { Snackbar } from "@/components";
-export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: "Layout",
-  components: {
-    Snackbar,
-  },
-  props: {},
-  
-});
-</script>
-
-<style scoped lang="scss"></style> -->
-
 <template>
-  <v-app>
+  <v-app >
     <v-main>
       <router-view />
       <Snackbar />
@@ -32,34 +7,38 @@ export default defineComponent({
   </v-app>
 </template>
 
-<script lang="ts">
-import { defineComponent, watch } from "vue";
+<script lang="ts" dir="rtl">
+import { defineComponent, onMounted, watch } from "vue";
 import { Snackbar } from "@/components";
-import i18n from "@/assets/locale";
+import { useI18n } from "vue-i18n";
 
 export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "Layout",
   components: {
     Snackbar,
   },
-  setup() {
-    // 👇 Watch for locale changes and set direction accordingly
-    watch(
-      () => i18n.global.locale.value,
-      (locale) => {
-        console.log('locale', locale)
-        document.documentElement.lang = locale;
-        document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
-      },
-      { immediate: true } // run once on component mount
-    );
+   setup() {
+    const { locale } = useI18n();
+    const updateHtmlDirection = (loc: string) => {
+      document.documentElement.lang = loc;
+      document.documentElement.dir = loc === "ar" ? "rtl" : "ltr";
+    };
 
-    return {};
+    // Run on mount
+    onMounted(() => {
+      updateHtmlDirection(locale.value);
+    });
+
+    // Watch language change
+    watch(locale, (newLocale) => {
+      updateHtmlDirection(newLocale);
+    });
+
+    return {
+      locale
+    };
   },
 });
 </script>
 
-<style scoped lang="scss">
-</style>
 

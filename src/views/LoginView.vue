@@ -1,8 +1,8 @@
 <template>
   <AuthLayout
-  title="حساب جديد"
-  footertext1="لديك حساب؟"
-  footertext2="تسجيل دخول"
+  title="تسجيل دخول"
+  footertext1="ليس لديك حساب؟"
+  footertext2="حساب جديد"
   path="/signup"
 >
   <!-- Child content passed to the slot -->
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { SignupForm, AuthLayout, LoginForm } from "@/components";
+import {AuthLayout, LoginForm } from "@/components";
 
 
 export default {
@@ -22,12 +22,7 @@ export default {
   },
 
   setup() {
-    // const images = {
-    //   login,
-    // };
-    return {
-      // images,
-    };
+    return {};
   },
 };
 </script>

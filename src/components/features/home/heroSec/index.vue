@@ -2,19 +2,7 @@
   <div class="hello">
     <h1 class="primary-color lato-bold">{{ msg }}</h1>
     <div class="d-flex justify-center">
-      <div>
-        <Button
-          btn_style="mb-4"
-          text_key="users"
-          btn_type="depressed"
-          :handleClick="getUsers"
-          :content_color="$vuetify.theme.themes.myCustomLightTheme.colors.white"
-          :color="$vuetify.theme.themes.myCustomLightTheme.colors.primary"
-        />
-        <p v-if="usersNo">
-          {{ t("usersNo") }}: <span>{{ usersNo }}</span>
-        </p>
-      </div>
+      مرحبا بك : 👋🙂
     </div>
   </div>
 </template>
@@ -24,10 +12,8 @@ import { computed, watch, ref } from "vue";
 import { useStore } from "vuex";
 import { useI18n } from "vue-i18n";
 
-import { Button } from "@/components";
 export default {
   name: "HeroSection",
-  components: { Button },
   props: {
     msg: String,
   },

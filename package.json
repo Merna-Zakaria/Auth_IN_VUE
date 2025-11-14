@@ -9,6 +9,7 @@
     "lint": "eslint --ext .js,.vue,.ts src"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "axios": "^1.2.1",
     "core-js": "^3.8.3",
     "vee-validate": "^4.15.1",

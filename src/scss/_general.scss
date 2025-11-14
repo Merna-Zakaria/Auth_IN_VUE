@@ -1,11 +1,10 @@
 @import "./variables";
-
-.primary-color {
-  color: $primaryColor;
+body {
+  font-family: "Dubai", sans-serif !important;
 }
 
-.lato-bold {
-  font-family: "Lato-Bold";
+.primary-color {
+  color: $primaryColor !important;
 }
 
 .cursor_pointer{
@@ -22,4 +21,9 @@
 
 .w-70 {
   width: 70%;
+}
+
+a {
+  text-decoration: none !important;
+  color: inherit !important;
 }

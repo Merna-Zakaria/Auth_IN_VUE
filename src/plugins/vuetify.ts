@@ -1,7 +1,15 @@
+
 import { createVuetify, ThemeDefinition } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
+import { ar, en } from "vuetify/locale"; 
+import i18n from "@/assets/locale";
+import { aliases, mdi } from "vuetify/iconsets/mdi";
+import "@mdi/font/css/materialdesignicons.css";
 
+const currentLocale = 
+  localStorage.getItem("lang")?.toLowerCase() || i18n.global.locale.value;
+console.log('localStorage.getItem("lang")', localStorage.getItem("lang"), 'i18n.global.locale.value', i18n.global.locale.value )
 const myCustomLightTheme: ThemeDefinition = {
   dark: false,
   colors: {
@@ -23,10 +31,21 @@ const myCustomLightTheme: ThemeDefinition = {
 const vuetify = createVuetify({
   components,
   directives,
-  locale: {
-    locale: "ar, en",
-    fallback: localStorage.getItem("lang")?.toLocaleLowerCase() || "en",
+  icons: {
+    defaultSet: "mdi",
+    aliases,
+    sets: { mdi },
   },
+  locale: {
+    locale: currentLocale,
+    fallback: "en",
+    messages: { ar, en },
+    rtl: {
+      ar: true,
+      en: false,
+    },
+  },
+
   theme: {
     defaultTheme: "myCustomLightTheme",
     variations: {
@@ -36,6 +55,13 @@ const vuetify = createVuetify({
     },
     themes: {
       myCustomLightTheme,
+    },
+  },
+    defaults: {
+    global: {
+      style: {
+        fontFamily: "Dubai, sans-serif",
+      },
     },
   },
 });

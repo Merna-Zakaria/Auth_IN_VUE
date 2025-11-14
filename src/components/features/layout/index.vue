@@ -1,14 +1,19 @@
 <template>
-  <div class="layout">
-    <Header />
-    <router-view />
-  </div>
+  <v-app>
+    <v-layout>
+      <Header />
+
+      <v-main>
+        <router-view />
+      </v-main>
+    </v-layout>
+  </v-app>
 </template>
+
 
 <script lang="ts">
 import Header from "./header/index.vue";
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "Layout",
   components: {
     Header,

@@ -5,6 +5,8 @@
       <v-select
         v-bind="field"
         :items="items"
+        item-title="label"
+        item-value="id"
         :placeholder="computedPlaceholder"
         :variant="variant"
         :density="density"
@@ -29,9 +31,8 @@ export default defineComponent({
     placeholder: { type: String, default: "" },
     name: { type: String, required: true },
     label: { type: String, required: true },
-    type: { type: String, default: "text" },
     items: {
-      type: Array as () => string[] | { title: string; value: string }[],
+      type: Array as () => { label: string; id: number }[],
       required: true,
     },
     variant: {
@@ -56,4 +57,3 @@ export default defineComponent({
   },
 });
 </script>
-

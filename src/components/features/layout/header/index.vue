@@ -1,26 +1,69 @@
 <template>
-  <v-layout row justify-center id="Header">
-    <v-toolbar app dark color="blue-grey darken-1" class="hidden-xs-and-down">
-      <v-toolbar-title>Vue Js 3</v-toolbar-title>
+  <!-- APP BAR -->
+  <v-app-bar color="blue-grey-darken-1 px-4" dark app>
+    <v-row class="d-flex d-md-none px-2" justify="space-between" align="center">
+
+      <!-- MOBILE: BURGER MENU -->
+      <v-col cols="auto">
+        <v-app-bar-nav-icon class="d-md-none" @click.stop="drawer = !drawer" />
+      </v-col>
+
+      <!-- MOBILE: LOGO ON RIGHT -->
+      <v-col cols="auto">
+        <v-img :src="logo" width="90" contain class="d-flex d-md-none ml-auto mr-3 " />
+      </v-col>
+    </v-row>
+
+    <!-- DESKTOP: LOGO (LEFT) -->
+    <v-img :src="logo" max-width="110" contain class="ml-2 d-none d-md-flex" />
+
+    <!-- DESKTOP NAV -->
+    <v-row class="flex-grow-1 d-none d-md-flex" justify="center">
       <v-toolbar-items>
-        <v-btn
-          v-for="item in nav"
-          :key="item.icon"
-          :to="item.path"
-          :title="item.title"
-          flat
-          >{{ item.text }}</v-btn
-        >
+        <v-btn v-for="item in nav" :key="item.icon" :to="item.path" flat>
+          {{ item.text }}
+        </v-btn>
       </v-toolbar-items>
-      <v-spacer></v-spacer>
+    </v-row>
+
+    <!-- DESKTOP ACTIONS -->
+    <div class="d-none d-md-flex align-center mr-4">
       <p class="px-4 cursor_pointer" @click="changeLang">
-        {{ currentLang === "EN" ? "AR" : "EN" }}
+        {{ currentLang === 'EN' ? 'AR' : 'EN' }}
       </p>
-      <Button color="white" text_key="login" :handleClick="navigateToLogin" />
-            <Button color="white" text_key="signup" :handleClick="navigateToSignup" />
-    </v-toolbar>
-  </v-layout>
+
+      <Button color="white" text_key="login" :handleClick="() => handleNavigation('/login')" />
+    </div>
+  </v-app-bar>
+
+
+  <!-- MOBILE DRAWER -->
+  <v-navigation-drawer v-model="drawer" temporary class="d-md-none">
+
+    <!-- NAV ITEMS -->
+    <v-list nav>
+      <v-list-item v-for="item in nav" :key="item.icon" :to="item.path">
+        <v-list-item-title>{{ item.text }}</v-list-item-title>
+      </v-list-item>
+    </v-list>
+
+    <v-divider class="my-2" />
+
+    <!-- LANG SWITCH -->
+    <v-list-item @click="changeLang" class="cursor_pointer">
+      <v-list-item-title>
+        {{ currentLang === 'EN' ? 'Switch to AR' : 'Switch to EN' }}
+      </v-list-item-title>
+    </v-list-item>
+
+    <!-- LOGIN BUTTON -->
+    <div class="px-4 mt-4">
+      <Button block color="blue-grey-darken-2" text_key="login" :handleClick="() => handleNavigation('/login')" />
+    </div>
+
+  </v-navigation-drawer>
 </template>
+
 
 <script lang="ts">
 import { ref, computed } from "vue";
@@ -28,14 +71,17 @@ import { useStore } from "vuex";
 import { useLocale } from "vuetify";
 import { useRouter } from "vue-router";
 import { Button } from "@/components";
+import logo from "@/assets/images/logo.png";
+
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "Header",
   components: { Button },
 
   setup() {
     const store = useStore();
     const { current } = useLocale();
+    const drawer = ref(false);
+
     const router = useRouter();
     console.log("router", router);
     let currentLang = computed(() => store.state.shared.lang);
@@ -46,23 +92,20 @@ export default {
         currentLang.value === "EN" ? "AR" : "EN"
       );
     };
-    const navigateToLogin = () => {
-      router.push({ path: "/login" });
-    };
-      const navigateToSignup = () => {
-      router.push({ path: "/signup" });
+    const handleNavigation = (path: string) => {
+      router.push({ path: path });
     };
     const nav = [
       {
         icon: "home",
-        text: "Home",
+        text: "الصفحه الرئيسيه",
         path: "/",
         title: "Back to Home page",
         active: true,
       },
       {
         icon: "info",
-        text: "About",
+        text: "عن الشركه",
         path: "/about",
         title: "About this demo",
         active: false,
@@ -73,10 +116,11 @@ export default {
       current,
       currentLang,
       changeLang,
-      navigateToLogin,
-      navigateToSignup
+      handleNavigation,
+      logo,
+      drawer
     };
   },
 };
 </script>
-<style scoped lang="scss" src="./index.scss"></style>
+<style lang="scss" src="./index.scss"></style>

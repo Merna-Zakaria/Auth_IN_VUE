@@ -49,11 +49,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.v-card {
-  direction: rtl;
-  font-family: "Tajawal", sans-serif;
-}
-
 /* Center the logo properly */
 .header-section {
   display: flex;
@@ -66,4 +61,5 @@ export default defineComponent({
 .v-img {
   object-fit: contain;
 }
+
 </style>
