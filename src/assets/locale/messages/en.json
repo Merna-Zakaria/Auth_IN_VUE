@@ -1,6 +1,8 @@
 {
   "hello": "Hello",
   "login": "Login",
+  "loginBtn": "Login",
+  "logout": "Logout",
   "users": "Get Users",
   "usersNo": "Users Number",
   "about": "about page"

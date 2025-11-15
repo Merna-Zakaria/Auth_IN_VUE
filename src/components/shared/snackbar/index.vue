@@ -14,7 +14,6 @@
 import { ref, defineComponent } from "vue";
 
 export default defineComponent({
-  // eslint-disable-next-line vue/multi-word-component-names
   name: "Snackbar",
   setup() {
     let snackbar = ref(true);

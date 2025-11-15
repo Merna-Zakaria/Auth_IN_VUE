@@ -2,15 +2,16 @@
   <v-app >
     <v-main>
       <router-view />
-      <Snackbar />
+      <Snackbar v-if="shared.snackbar"/>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts" dir="rtl">
-import { defineComponent, onMounted, watch } from "vue";
+import { defineComponent, onMounted, watch, computed } from "vue";
 import { Snackbar } from "@/components";
 import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "Layout",
@@ -19,11 +20,14 @@ export default defineComponent({
   },
    setup() {
     const { locale } = useI18n();
+    const { state: {shared}} = useStore()
     const updateHtmlDirection = (loc: string) => {
       document.documentElement.lang = loc;
       document.documentElement.dir = loc === "ar" ? "rtl" : "ltr";
     };
 
+
+console.log('shared',shared)
     // Run on mount
     onMounted(() => {
       updateHtmlDirection(locale.value);
@@ -35,7 +39,8 @@ export default defineComponent({
     });
 
     return {
-      locale
+      locale,
+      shared
     };
   },
 });

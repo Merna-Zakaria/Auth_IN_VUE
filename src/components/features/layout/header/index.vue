@@ -3,15 +3,17 @@
   <v-app-bar color="blue-grey-darken-1 px-4" dark app>
     <v-row class="d-flex d-md-none px-2" justify="space-between" align="center">
 
+      <!-- MOBILE: LOGO ON RIGHT -->
+      <v-col cols="auto">
+        <v-img :src="logo" width="90" contain class="d-flex d-md-none ml-auto mr-3 " />
+      </v-col>
+
       <!-- MOBILE: BURGER MENU -->
       <v-col cols="auto">
         <v-app-bar-nav-icon class="d-md-none" @click.stop="drawer = !drawer" />
       </v-col>
 
-      <!-- MOBILE: LOGO ON RIGHT -->
-      <v-col cols="auto">
-        <v-img :src="logo" width="90" contain class="d-flex d-md-none ml-auto mr-3 " />
-      </v-col>
+
     </v-row>
 
     <!-- DESKTOP: LOGO (LEFT) -->
@@ -32,7 +34,8 @@
         {{ currentLang === 'EN' ? 'AR' : 'EN' }}
       </p>
 
-      <Button color="white" text_key="login" :handleClick="() => handleNavigation('/login')" />
+      <Button color="white" text_key="loginBtn" :handleClick="() => handleNavigation('/login')" v-if="!user"/>
+      <Button color="white" text_key="logout" :handleClick="handleLogout" v-if="user"/>
     </div>
   </v-app-bar>
 
@@ -58,7 +61,10 @@
 
     <!-- LOGIN BUTTON -->
     <div class="px-4 mt-4">
-      <Button block color="blue-grey-darken-2" text_key="login" :handleClick="() => handleNavigation('/login')" />
+      <Button block color="blue-grey-darken-2" text_key="loginBtn" :handleClick="() => handleNavigation('/login')"
+        v-if="!user" />
+      <Button block color="blue-grey-darken-2" text_key="logout" :handleClick="handleLogout" v-if="user" />
+
     </div>
 
   </v-navigation-drawer>
@@ -85,6 +91,8 @@ export default {
     const router = useRouter();
     console.log("router", router);
     let currentLang = computed(() => store.state.shared.lang);
+    const storedUser = localStorage.getItem('user');
+    const user = storedUser ? JSON.parse(storedUser) : "";
     const changeLang = () => {
       current.value = currentLang.value === "EN" ? "ar" : "en";
       store.dispatch(
@@ -95,6 +103,10 @@ export default {
     const handleNavigation = (path: string) => {
       router.push({ path: path });
     };
+    const handleLogout = () => {
+      localStorage.removeItem('user')
+      handleNavigation('/login')
+    }
     const nav = [
       {
         icon: "home",
@@ -118,7 +130,9 @@ export default {
       changeLang,
       handleNavigation,
       logo,
-      drawer
+      drawer,
+      user,
+      handleLogout
     };
   },
 };

@@ -1,5 +1,7 @@
 import { axiosInstance, signup, login } from "@/network";
 import { AxiosResponse } from "axios";
+import  router  from "@/router";
+
 
 export interface AuthState {
   user: { email: string } | null
@@ -18,8 +20,9 @@ export default {
     SET_LOADING(state: AuthState, payload: boolean) {
       state.loading = payload
     },
-    SET_USER(state: AuthState, payload: { email: string } | null) {
+    SET_USER(state: AuthState, payload: any) {
       state.user = payload
+      localStorage.setItem('user', JSON.stringify(payload))
     },
     SET_ERROR(state: AuthState, payload: string | null) {
       state.error = payload
@@ -30,14 +33,15 @@ export default {
       commit('SET_LOADING', true)
       commit('SET_ERROR', null)
       try {
-        const response = await axiosInstance.post(login, payload);
+        // const response = await axiosInstance.post(login, payload);
         dispatch(
           "shared/isSnackbar", true, { root: true }
         );
+        router.push("/");
         // Simulate API call
         // await new Promise((resolve) => setTimeout(resolve, 1000))
         // if (email === 'test@example.com' && password === '1234') {
-        //   commit('SET_USER', { email })
+          commit('SET_USER', payload)
         // } else {
         //   throw new Error('بيانات الدخول غير صحيحة')
         // }
@@ -57,6 +61,7 @@ export default {
         dispatch(
           "shared/isSnackbar", true, { root: true }
         );
+        router.push("/");
         // await new Promise((resolve) => setTimeout(resolve, 1500))
         // commit('SET_USER', payload)
         // alert('تم التسجيل بنجاح!')

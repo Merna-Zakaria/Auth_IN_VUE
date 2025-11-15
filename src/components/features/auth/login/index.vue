@@ -1,5 +1,5 @@
 <template>
-  <Form :validation-schema="schema" @submit="handleSignup" :validate-on-change="true" :validate-on-blur="false"
+  <Form :validation-schema="schema" @submit="(values)=>handleSubmit(values)" :validate-on-change="true" :validate-on-blur="false"
     :validate-on-input="false" :validate-on-model-update="false">
     <v-row dense>
 
@@ -24,7 +24,6 @@ import { watch } from "vue";
 import { TextField, SelectField, Button } from "@/components";
 
 const store = useStore();
-// const signupform= useForm()
 // Initialize VeeValidate form composable
 const { values, errors, validate } = useForm();
 const loading = computed(() => store.state.auth.loading);
@@ -41,7 +40,7 @@ const schema = yup.object({
 });
 
 // console.log('result', signupform)
-const handleSignup = async (values) => {
+const handleSubmit = async (values) => {
   // const result = await validate()
   // if (!result.valid) {
   //   console.log('Form has errors:', errors.value)
@@ -49,7 +48,7 @@ const handleSignup = async (values) => {
   // }
 
   console.log("Form is valid!", values);
-  // await store.dispatch('auth/register', values)
+  await store.dispatch('auth/loginRequest', values)
 };
 watch(values, (val) => console.log("Current form values:", val));
 </script>
