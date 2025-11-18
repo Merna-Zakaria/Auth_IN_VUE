@@ -3,10 +3,10 @@ import { actions } from "./actions";
 import { mutations } from "./mutations";
 import { SharedState } from "./types";
 
-localStorage.setItem("lang", "AR");
+localStorage.setItem("lang", "ar");
 
 export const state: SharedState = {
-  snackbar: false,
+  snackbar: {type: null, text: ''},
   lang: localStorage.getItem("lang"),
 };
 

@@ -2,7 +2,6 @@
   <Form :validation-schema="schema" @submit="(values)=>handleSubmit(values)" :validate-on-change="true" :validate-on-blur="false"
     :validate-on-input="false" :validate-on-model-update="false">
     <v-row dense>
-
       <TextField name="email" label="البريد الإلكتروني" type="email" :cols="12" :md="12" />
       <TextField name="password" label="كلمة المرور" type="password" :cols="12" :md="12" />
       <v-col cols="12" class="text-center mt-6">
@@ -52,3 +51,9 @@ const handleSubmit = async (values) => {
 };
 watch(values, (val) => console.log("Current form values:", val));
 </script>
+<!-- <style scoped>
+.v-input{
+  width: 270px !important;
+  height: 70px !important;
+}
+</style> -->

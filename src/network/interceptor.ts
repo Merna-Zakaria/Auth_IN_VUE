@@ -2,7 +2,7 @@ import axios from "axios";
 import store from "@/store/index";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com/",
+  baseURL: "https://karrda.wsmco.sa/api/v1/",
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,7 +13,12 @@ export const successHandler = (response: any) => {
 };
 
 export const errorHandler = (error: any) => {
+  console.log('mmmmmmmmmm', error)
+    store.dispatch(
+          "shared/isSnackbar", {type: 'error', text: error.response.data.message}, { root: true }
+        );
   throw new Error(`There is an error in response ${error}`);
+  
 };
 
 // Add a request interceptor

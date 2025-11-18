@@ -1,13 +1,9 @@
 import { axiosInstance, signup, login } from "@/network";
 import { AxiosResponse } from "axios";
-import  router  from "@/router";
+import router from "@/router";
+import { LoginResponse, AuthState } from './types'
 
 
-export interface AuthState {
-  user: { email: string } | null
-  loading: boolean
-  error: string | null
-}
 
 export default {
   namespaced: true,
@@ -20,53 +16,47 @@ export default {
     SET_LOADING(state: AuthState, payload: boolean) {
       state.loading = payload
     },
-    SET_USER(state: AuthState, payload: any) {
-      state.user = payload
-      localStorage.setItem('user', JSON.stringify(payload))
+    SET_USER(state: AuthState, payload: LoginResponse) {
+      state.user = payload?.user
+      localStorage.setItem('user', JSON.stringify(payload.user))
+      localStorage.setItem('token', JSON.stringify(payload.token))
     },
     SET_ERROR(state: AuthState, payload: string | null) {
       state.error = payload
     }
   },
   actions: {
-    async loginRequest({ commit , dispatch}:{commit: any, dispatch: any}, payload: { email: string; password: string }) {
+    async loginRequest({ commit, dispatch }: { commit: any, dispatch: any }, payload: { email: string; password: string }) {
       commit('SET_LOADING', true)
       commit('SET_ERROR', null)
       try {
-        // const response = await axiosInstance.post(login, payload);
+        const response = await axiosInstance.post(login, payload);
         dispatch(
-          "shared/isSnackbar", true, { root: true }
+          "shared/isSnackbar", { type: 'success', text: response.data.message }, { root: true }
         );
         router.push("/");
-        // Simulate API call
-        // await new Promise((resolve) => setTimeout(resolve, 1000))
-        // if (email === 'test@example.com' && password === '1234') {
-          commit('SET_USER', payload)
-        // } else {
-        //   throw new Error('بيانات الدخول غير صحيحة')
-        // }
+        console.log('response', response)
+        commit('SET_USER', response?.data?.data)
       } catch (err: any) {
-        commit('SET_ERROR', err.message)
+        console.log('error in login', err)
       } finally {
         commit('SET_LOADING', false)
       }
     },
 
-    async register({ commit , dispatch}:{commit: any, dispatch: any}, payload: { email: string }) {
+    async register({ commit, dispatch }: { commit: any, dispatch: any }, payload: { email: string }) {
       commit('SET_LOADING', true)
       commit('SET_ERROR', null)
       try {
-        // const response = await axiosInstance.post(signup, payload);
-        console.log('payload', payload)
+        const response = await axiosInstance.post(signup, payload);
         dispatch(
-          "shared/isSnackbar", true, { root: true }
+          "shared/isSnackbar", { type: 'success', text: response.data.message }, { root: true }
         );
         router.push("/");
-        // await new Promise((resolve) => setTimeout(resolve, 1500))
-        // commit('SET_USER', payload)
-        // alert('تم التسجيل بنجاح!')
+        console.log('response', response)
+        commit('SET_USER', response?.data?.data)
       } catch (err) {
-        commit('SET_ERROR', 'حدث خطأ أثناء التسجيل')
+        console.log('error in login', err)
       } finally {
         commit('SET_LOADING', false)
       }

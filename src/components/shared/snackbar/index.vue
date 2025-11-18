@@ -1,10 +1,10 @@
 <template>
   <div class="text-center">
     <v-snackbar v-model="snackbar" :timeout="timeout" :color="color">
-      {{ text }}
+      {{ shared.snackbar.text }}
 
-      <v-btn color="blue" variant="text" @click="handleSnackbar(false)">
-        Close
+      <v-btn color="white" variant="text" @click="handleSnackbar(false)" class="d-flex justify-end ">
+        X
       </v-btn>
     </v-snackbar>
   </div>
@@ -12,14 +12,16 @@
 
 <script lang="ts">
 import { ref, defineComponent } from "vue";
+import { useStore } from "vuex";
 
 export default defineComponent({
   name: "Snackbar",
   setup() {
     let snackbar = ref(true);
-    let text = "My timeout is set to 2000.";
+      const { state: {shared}} = useStore()
+    let text = "Success";
     const timeout = 2000;
-    const color = "sucess";
+    const color = shared.snackbar.type == 'success' ? 'green' : 'red';
     const snackbarInfo = {};
     const log = (msg1: unknown, msg2: unknown) => {
       console.log(msg1, msg2);
@@ -34,6 +36,7 @@ export default defineComponent({
       color,
       log,
       handleSnackbar,
+      shared
     };
   },
 });
