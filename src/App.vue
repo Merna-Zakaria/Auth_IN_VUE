@@ -27,7 +27,6 @@ export default defineComponent({
     };
 
 
-console.log('shared',shared)
     // Run on mount
     onMounted(() => {
       updateHtmlDirection(locale.value);

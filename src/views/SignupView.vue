@@ -22,11 +22,7 @@ export default {
   },
 
   setup() {
-    // const images = {
-    //   login,
-    // };
     return {
-      // images,
     };
   },
 };

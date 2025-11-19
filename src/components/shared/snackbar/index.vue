@@ -21,11 +21,7 @@ export default defineComponent({
       const { state: {shared}} = useStore()
     let text = "Success";
     const timeout = 2000;
-    const color = shared.snackbar.type == 'success' ? 'green' : 'red';
-    const snackbarInfo = {};
-    const log = (msg1: unknown, msg2: unknown) => {
-      console.log(msg1, msg2);
-    };
+    const color = shared.snackbar.type == 'success' ? 'green' : 'red';  
     const handleSnackbar = (value: boolean) => {
       snackbar.value = value;
     };
@@ -34,7 +30,6 @@ export default defineComponent({
       text,
       timeout,
       color,
-      log,
       handleSnackbar,
       shared
     };
