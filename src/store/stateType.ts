@@ -1,6 +1,6 @@
 import { SharedState } from "./shared/types";
-import { UserState, User } from "./user/types";
+import { AuthState } from "./Auth/types";
 export interface State {
-  user: UserState;
   shared: SharedState;
+  auth: AuthState
 }

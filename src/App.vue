@@ -2,7 +2,7 @@
   <v-app >
     <v-main>
       <router-view />
-      <Snackbar v-if="shared.snackbar.type"/>
+      <Snackbar v-if="shared.snackbar && shared.snackbar.type"/>
     </v-main>
   </v-app>
 </template>

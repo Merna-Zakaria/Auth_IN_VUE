@@ -89,8 +89,9 @@ export default {
     const drawer = ref(false);
 
     const router = useRouter();
-    console.log("router", router);
+
     let currentLang = computed(() => store.state.shared.lang);
+    
     const storedUser = localStorage.getItem('user');
     const user = storedUser ? JSON.parse(storedUser) : "";
     const changeLang = () => {

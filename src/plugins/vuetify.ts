@@ -2,14 +2,14 @@
 import { createVuetify, ThemeDefinition } from "vuetify";
 import * as components from "vuetify/components";
 import * as directives from "vuetify/directives";
-import { ar, en } from "vuetify/locale"; 
+import { ar, en } from "vuetify/locale";
 import i18n from "@/assets/locale";
 import { aliases, mdi } from "vuetify/iconsets/mdi";
 import "@mdi/font/css/materialdesignicons.css";
 
-const currentLocale = 
+const currentLocale =
   localStorage.getItem("lang")?.toLowerCase() || i18n.global.locale.value;
-console.log('localStorage.getItem("lang")', localStorage.getItem("lang"), 'i18n.global.locale.value', i18n.global.locale.value )
+
 const myCustomLightTheme: ThemeDefinition = {
   dark: false,
   colors: {
@@ -57,7 +57,7 @@ const vuetify = createVuetify({
       myCustomLightTheme,
     },
   },
-    defaults: {
+  defaults: {
     global: {
       style: {
         fontFamily: "Dubai, sans-serif",

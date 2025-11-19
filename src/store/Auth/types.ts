@@ -6,6 +6,7 @@ export interface User {
     status: string;
     national_id: string;
     country_id: number | null;
+    token: string
   }
 export interface LoginResponse {
   user: User;

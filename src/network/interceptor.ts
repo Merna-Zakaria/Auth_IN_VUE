@@ -13,7 +13,6 @@ export const successHandler = (response: any) => {
 };
 
 export const errorHandler = (error: any) => {
-  console.log('mmmmmmmmmm', error)
     store.dispatch(
           "shared/isSnackbar", {type: 'error', text: error.response.data.message}, { root: true }
         );
@@ -26,7 +25,7 @@ axiosInstance.interceptors.request.use(
   function (config) {
     // Do something before request is sent
     if (config?.headers?.Authorization != undefined) {
-      config.headers.Authorization = "Bearer " + store?.state.user.user?.token;
+      config.headers.Authorization = "Bearer " + store?.state.auth.user?.token;
       return config;
     }
     return config;

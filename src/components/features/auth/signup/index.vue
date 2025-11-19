@@ -175,11 +175,8 @@ const handleSubmit = async (values: RegisterForm) => {
   const result = await validate();
 
   if (!result.valid) {
-    console.log("Form has errors:", errors.value);
     return;
   }
-
-  console.log("Form is valid!", values);
 
   await store.dispatch("auth/registerRequest", payload);
 };
