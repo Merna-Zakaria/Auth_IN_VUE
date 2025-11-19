@@ -87,7 +87,7 @@ const handleSubmit = async (values) => {
   }
 
   console.log('Form is valid!', values)
-  await store.dispatch('auth/register', payload)
+  await store.dispatch('auth/registerRequest', payload)
 }
 watch(values, (val) => console.log("Current form values:", val));
 </script>

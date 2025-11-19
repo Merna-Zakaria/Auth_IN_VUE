@@ -3,9 +3,9 @@
     <v-snackbar v-model="snackbar" :timeout="timeout" :color="color">
       {{ shared.snackbar.text }}
 
-      <v-btn color="white" variant="text" @click="handleSnackbar(false)" class="d-flex justify-end ">
+      <!-- <v-btn color="white" variant="text" @click="handleSnackbar(false)" class="d-flex justify-end ">
         X
-      </v-btn>
+      </v-btn> -->
     </v-snackbar>
   </div>
 </template>
